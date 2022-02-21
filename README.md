@@ -1,6 +1,6 @@
 # Flask - Cognito integration
 
-The example web application uses [Flask](https://flask.palletsprojects.com/en/2.0.x/) [AWS Cognito](https://aws.amazon.com/cognito/).
+The example web application uses [Flask](https://flask.palletsprojects.com/en/2.0.x/) and [AWS Cognito](https://aws.amazon.com/cognito/).
 
 TODO detailed explanation and diagrams.
 
