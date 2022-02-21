@@ -16,3 +16,13 @@ lint:  ## Run linting checks with flake8 and black
 format:  ## Run black to format the code
 	poetry run black .
 	poetry run isort src
+
+local:  ## Run the webapp locally for debugging using Werkzeug
+	poetry run run.debug.py
+
+docker-build:  ## Build the containerised webapp
+	docker build -f Dockerfile -t "webapp:latest" .
+
+docker-run:  ## Run the containerised application locally
+	echo "Running at : http://localhost:5000/"
+	docker run -ti --net=host --env-file ./.env "webapp:latest"
