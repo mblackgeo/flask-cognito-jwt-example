@@ -31,7 +31,7 @@ jobs:
         run: poetry run black . --check
 
       - name: Check import order with isort
-        run: poetry run isort -c webapp
+        run: poetry run isort -c src
 
       - name: Test with pytest
         run: poetry run pytest -v --cov webapp
