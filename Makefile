@@ -11,6 +11,8 @@ test:  ## Run the test suite using pytest
 lint:  ## Run linting checks with flake8 and black
 	poetry run flake8 src/
 	poetry run black --check src/
+	poetry run isort -c src/
 
 format:  ## Run black to format the code
 	poetry run black .
+	poetry run isort src
