@@ -10,6 +10,9 @@ def create_app() -> Flask:
     app.config.from_object("webapp.config.Config")
 
     with app.app_context():
-        from . import routes  # noqa: F401
+        from .home import routes as home_routes  # noqa: F401
+
+        # register blueprints
+        app.register_blueprint(home_routes.bp)
 
         return app

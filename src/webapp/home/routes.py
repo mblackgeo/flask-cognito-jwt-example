@@ -1,10 +1,10 @@
 """Route declaration."""
-from flask import Response
-from flask import current_app as app
-from flask import jsonify, render_template
+from flask import Blueprint, Response, jsonify, render_template
+
+bp = Blueprint("home_bp", __name__)
 
 
-@app.route("/health")
+@bp.route("/health")
 def health() -> Response:
     """Return a JSON response containing status OK. Used for automatic health checks
     Returns
@@ -15,7 +15,7 @@ def health() -> Response:
     return jsonify({"status": "ok"})
 
 
-@app.route("/")
+@bp.route("/")
 def home() -> str:
     """Render the homepage of the website
 
@@ -27,7 +27,7 @@ def home() -> str:
     return render_template("index.html", title="Welcome!")
 
 
-@app.route("/login", methods=["GET", "POST"])
+@bp.route("/login", methods=["GET", "POST"])
 def login() -> str:
     """Handover to Coginito for login
 
