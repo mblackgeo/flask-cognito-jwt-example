@@ -39,7 +39,7 @@ def postlogin():
     return resp
 
 
-@bp.route("/claims")
+@bp.route("/token")
 @jwt_required(locations=["headers", "cookies"])
 def token():
     """Show the JSON web token for the current authenticated user"""
