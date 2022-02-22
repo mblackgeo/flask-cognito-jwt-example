@@ -4,7 +4,13 @@ The example web application uses [Flask](https://flask.palletsprojects.com/en/2.
 
 ## Getting started
 
-To get started, setup a [Cognito User Pool](https://docs.aws.amazon.com/cognito/latest/developerguide/tutorial-create-user-pool.html) in AWS. At Step 5 of setup (Integrate your app), ensure to check the box for the "Use the Cognito Hosted UI" and when creating your "Initial app client", check the radio button to "Generate a client secret". After setting up the user pool, create a `.env` file (following `.env.example`) and populate the parameters from your newly created user pool:
+To get started, setup a [Cognito User Pool](https://docs.aws.amazon.com/cognito/latest/developerguide/tutorial-create-user-pool.html) in AWS:
+
+* At Step 5 of setup (Integrate your app), ensure to check the box for the "Use the Cognito Hosted UI"
+* When creating your "Initial app client", check the radio button to "Generate a client secret"
+* Set "Allowed callback URLs" to your site URL (e.g. `http://<FLASK_SITE_URL>/postlogin`), for example: `http://localhost:5000/postlogin`
+
+After setting up the user pool, create a `.env` file (following `.env.example`) and populate the parameters from your newly created user pool:
 
 ```shell
 FLASK_APP=webapp
@@ -17,7 +23,6 @@ AWS_COGNITO_DOMAIN=
 AWS_COGNITO_USER_POOL_ID=
 AWS_COGNITO_USER_POOL_CLIENT_ID=
 AWS_COGNITO_USER_POOL_CLIENT_SECRET=
-AWS_COGNITO_REDIRECT_URL=http://localhost:5000/postlogin  # Change "localhost:5000" if not running locally
 ```
 
 The application can be run locally through docker (`make docker-build && make docker-run`) or installed to a virtualenv using poetry and the `run.debug.py` (for debugging) or the `run.bjoern.py` for the production WSGI server (see Development below for more details). The app should be launched at [http://localhost:5000](http://localhost:5000) and a login link should redirect you to the hosted Cognito UI to sign up / sign in. Once logged in, a cookie will be set to save the JWT and you will be redirected to the [private page](http://localhost:5000/private). You may also view details of the JWT at the [`/token`](http://localhost:5000/jwt) endpoint.
@@ -42,7 +47,8 @@ The Makefile includes helpful commands setting a development environment, get st
 
 ## TODO
 
+- [ ] [CRSF protection](https://flask-jwt-extended.readthedocs.io/en/stable/options/#cross-site-request-forgery-options)
+- [ ] Serverless deployment with [AWS CDK](https://aws.amazon.com/cdk/)
+- [ ] Logout endpoint
 - [ ] Tests for authentication
 - [ ] CI pipeline tests with mocking
-- [ ] Logout endpoint
-- [ ] Serverless deployment with [AWS CDK](https://aws.amazon.com/cdk/)
