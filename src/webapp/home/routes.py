@@ -1,7 +1,7 @@
 """Route declaration."""
 from flask import Blueprint, Response, jsonify, render_template
 
-bp = Blueprint("home_bp", __name__)
+bp = Blueprint("home_bp", __name__, template_folder="templates")
 
 
 @bp.route("/health")

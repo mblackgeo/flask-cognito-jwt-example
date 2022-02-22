@@ -11,8 +11,10 @@ def create_app() -> Flask:
 
     with app.app_context():
         from .home import routes as home_routes  # noqa: F401
+        from .private import routes as private_routes  # noqa: F401
 
         # register blueprints
         app.register_blueprint(home_routes.bp)
+        app.register_blueprint(private_routes.bp)
 
         return app
