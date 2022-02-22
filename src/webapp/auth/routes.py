@@ -16,7 +16,7 @@ from .utils import get_cognito_public_keys
 aws_auth = AWSCognitoAuthentication(current_app)
 current_app.config["JWT_PUBLIC_KEY"] = RSAAlgorithm.from_jwk(
     get_cognito_public_keys(
-        region=current_app.config["AWS_DEFAULT_REGION"],
+        region=current_app.config["AWS_REGION"],
         pool_id=current_app.config["AWS_COGNITO_USER_POOL_ID"],
     )
 )
