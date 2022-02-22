@@ -4,7 +4,7 @@ from flask import Blueprint, render_template
 bp = Blueprint("private_bp", __name__, template_folder="templates")
 
 
-@bp.route("/prviate")
+@bp.route("/private")
 def private() -> str:
     """Render the a private page of the website
 
