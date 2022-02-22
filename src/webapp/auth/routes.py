@@ -46,7 +46,7 @@ def postlogin():
 
 
 @bp.route("/token")
-@jwt_required
+@jwt_required()
 def token():
     """Show the JSON web token for the current authenticated user"""
     return jsonify(get_jwt())

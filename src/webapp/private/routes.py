@@ -6,7 +6,7 @@ bp = Blueprint("private_bp", __name__, template_folder="templates")
 
 
 @bp.route("/private")
-@jwt_required
+@jwt_required()
 def private() -> str:
     """Render the a private page of the website
 
