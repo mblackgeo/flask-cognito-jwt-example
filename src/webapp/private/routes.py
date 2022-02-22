@@ -1,14 +1,15 @@
 """Route declaration."""
-from flask import Blueprint, render_template
+from typing import Union
 
-from webapp.auth.routes import aws_auth
+from flask import Blueprint, Response, render_template
+from flask_jwt_extended import jwt_required
 
 bp = Blueprint("private_bp", __name__, template_folder="templates")
 
 
 @bp.route("/private")
-@aws_auth.authentication_required
-def private() -> str:
+@jwt_required(locations=["headers", "cookies"])
+def private() -> Union[Response, str]:
     """Render the a private page of the website
 
     Returns
