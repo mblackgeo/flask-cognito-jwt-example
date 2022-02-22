@@ -25,15 +25,3 @@ def home() -> str:
         HTML of page to display at "/"
     """
     return render_template("index.html", title="Welcome!")
-
-
-@bp.route("/login", methods=["GET", "POST"])
-def login() -> str:
-    """Handover to Coginito for login
-
-    Returns
-    -------
-    str
-        HTML of page to display at "/"
-    """
-    return "ok"
