@@ -50,5 +50,3 @@ The Makefile includes helpful commands setting a development environment, get st
 - [ ] [CRSF protection](https://flask-jwt-extended.readthedocs.io/en/stable/options/#cross-site-request-forgery-options)
 - [ ] Serverless deployment with [AWS CDK](https://aws.amazon.com/cdk/)
 - [ ] Logout endpoint
-- [ ] Tests for authentication
-- [ ] CI pipeline tests with mocking
