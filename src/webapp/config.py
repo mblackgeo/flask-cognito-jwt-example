@@ -25,6 +25,8 @@ class Config:
     )
     AWS_COGNITO_REDIRECT_URL = environ.get("AWS_COGNITO_REDIRECT_URL")
 
+    JWT_ALGORITHM = "RS256"
+
     # Static Assets
     STATIC_FOLDER = "static"
     TEMPLATES_FOLDER = "templates"
