@@ -8,7 +8,13 @@ from flask import (
     url_for,
 )
 from flask_awscognito import AWSCognitoAuthentication
-from flask_jwt_extended import JWTManager, get_jwt, jwt_required, set_access_cookies
+from flask_jwt_extended import (
+    JWTManager,
+    get_jwt,
+    jwt_required,
+    set_access_cookies,
+    unset_jwt_cookies,
+)
 from jwt.algorithms import RSAAlgorithm
 
 from .utils import get_cognito_public_keys
@@ -40,10 +46,14 @@ def postlogin():
 
 
 @bp.route("/token")
-@jwt_required(locations=["headers", "cookies"])
+@jwt_required
 def token():
     """Show the JSON web token for the current authenticated user"""
     return jsonify(get_jwt())
 
 
-# TODO logout function
+@bp.route("/logout", methods=["POST"])
+def logout():
+    response = jsonify({"msg": "logout successful"})
+    unset_jwt_cookies(response)
+    return response
