@@ -16,6 +16,7 @@ After setting up the user pool, create a `.env` file (following `.env.example`) 
 FLASK_APP=webapp
 FLASK_ENV=dev
 FLASK_JWT_SECRET_KEY=very-secure  # change this!
+FLASK_SITE_URL=http://localhost:5000  # change if not running locally
 
 # all of these values should be obtained from AWS Cognito
 AWS_REGION=
