@@ -9,16 +9,16 @@ test:  ## Run the test suite using pytest
 	poetry run pytest --cov webapp
 
 lint:  ## Run linting checks with flake8 and black
-	poetry run flake8 src/
-	poetry run black --check src/
-	poetry run isort -c src/
+	poetry run flake8 .
+	poetry run black --check .
+	poetry run isort -c .
 
 format:  ## Run black to format the code
 	poetry run black .
-	poetry run isort src
+	poetry run isort .
 
 local:  ## Run the webapp locally for debugging using Werkzeug
-	poetry run run.debug.py
+	poetry run python src/webapp/run.debug.py
 
 docker-build:  ## Build the containerised webapp
 	docker build -f Dockerfile -t "webapp:latest" .
