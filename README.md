@@ -15,15 +15,24 @@ After setting up the user pool, create a `.env` file (following `.env.example`) 
 ```shell
 FLASK_APP=webapp
 FLASK_ENV=dev
-FLASK_JWT_SECRET_KEY=very-secure  # change this!
-FLASK_SITE_URL=http://localhost:5000  # change if not running locally
+FLASK_SITE_URL=http://localhost:5000
 
-# all of these values should be obtained from AWS Cognito
+# AWS account and region used for deployment (or where Cognito is running)
+AWS_ACCOUNT=
 AWS_REGION=
+
+# These are required if running locally, when deploying with CDK they will
+# be automatically populated in the running container in AWS Lambda
 AWS_COGNITO_DOMAIN=
 AWS_COGNITO_USER_POOL_ID=
 AWS_COGNITO_USER_POOL_CLIENT_ID=
 AWS_COGNITO_USER_POOL_CLIENT_SECRET=
+
+# optional, set to deploy to a custom URL: <api_subdomain.domain_name>
+# Must have the domain registered in Route 53 already
+AWS_DOMAIN_NAME=
+AWS_API_SUBDOMAIN=
+AWS_COGNITO_SUBDOMAIN=auth  # set a custom subdomain for Cognito
 ```
 
 The application can be run locally through docker (`make docker-build && make docker-run`) or installed to a virtualenv using poetry and the `src/webapp/run.debug.py` (for debugging) or the `src/webapp/run.bjoern.py` for the production WSGI server (see Development below for more details). The app should be launched at [http://localhost:5000](http://localhost:5000) and a login link should redirect you to the hosted Cognito UI to sign up / sign in. Once logged in, a cookie will be set to save the JWT and you will be redirected to the [private page](http://localhost:5000/private). You may also view details of the JWT at the [`/token`](http://localhost:5000/token) endpoint.

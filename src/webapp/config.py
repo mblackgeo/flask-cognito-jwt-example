@@ -11,6 +11,7 @@ load_dotenv(path.join(basedir, "..", "..", ".env"))
 class Config:
     """Set Flask configuration vars from .env file."""
 
+    # TODO replace this with pydantic
     # General Config
     SECRET_KEY = environ.get("SECRET_KEY", urandom(32))
     FLASK_APP = environ["FLASK_APP"]
@@ -27,6 +28,7 @@ class Config:
     AWS_COGNITO_REDIRECT_URL = path.join(FLASK_SITE_URL, "postlogin")
 
     # JWT
+    FLASK_JWT_SECRET_KEY = environ.get("FLASK_JWT_SECRET_KEY", urandom(32))
     JWT_ALGORITHM = "RS256"
     # JWT_TOKEN_LOCATION = ["cookies"]
     # JWT_COOKIE_SECURE = FLASK_ENV == "prod"  # True in prod

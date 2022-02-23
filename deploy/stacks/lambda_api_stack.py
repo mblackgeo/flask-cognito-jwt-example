@@ -51,14 +51,14 @@ class LambdaApiStack(core.Stack):
             environment={
                 "FLASK_APP": "webapp",
                 "FLASK_ENV": cfg.ENV,
-                "FLASK_JWT_SECRET_KEY": "",
-                "FLASK_SITE_URL": "",
+                "FLASK_JWT_SECRET_KEY": "",  # TODO generate this in the app
+                "FLASK_SITE_URL": "",  # from API gateway or custom domain
                 "AWS_REGION": cfg.AWS_REGION,
                 "AWS_DEFAULT_REGION": cfg.AWS_REGION,
-                "AWS_COGNITO_DOMAIN": "",
-                "AWS_COGNITO_USER_POOL_ID": "",
-                "AWS_COGNITO_USER_POOL_CLIENT_ID": "",
-                "AWS_COGNITO_USER_POOL_CLIENT_SECRET": "",
+                "AWS_COGNITO_DOMAIN": "",  # from ssm
+                "AWS_COGNITO_USER_POOL_ID": "",  # from ssm
+                "AWS_COGNITO_USER_POOL_CLIENT_ID": "",  # from ssm
+                "AWS_COGNITO_USER_POOL_CLIENT_SECRET": "",  # from ssm
             },
         )
 
