@@ -48,5 +48,6 @@ The Makefile includes helpful commands setting a development environment, get st
 
 ## TODO
 
+- [ ] CORS
 - [ ] [CSRF protection](https://flask-jwt-extended.readthedocs.io/en/stable/options/#cross-site-request-forgery-options)
 - [ ] Serverless deployment with [AWS CDK](https://aws.amazon.com/cdk/)
