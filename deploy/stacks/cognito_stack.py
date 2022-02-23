@@ -28,17 +28,8 @@ class CognitoStack(core.Stack):
                 email_subject="Verify your account",
                 email_style=cognito.VerificationEmailStyle.LINK,
             ),
-            removal_policy=core.RemovalPolicy.DESTROY,
+            removal_policy=core.RemovalPolicy.DESTROY,  # TODO change for prod
         )
-
-        # Add a client and generate client ID and secret
-        self.client = self.user_pool.add_client(
-            f"{construct_id}-client",
-            generate_secret=True,
-            user_pool_client_name=f"{cfg.NAMESPACE}-{cfg.ENV}",
-            auth_flows=cognito.AuthFlow(user_password=True, user_srp=True),
-        )
-        self.export_client_secret_to_ssm(construct_id)
 
         # Add a custom domain for the hosted UI
         if cfg.AWS_COGNITO_SUBDOMAIN and cfg.AWS_DOMAIN_NAME:
@@ -64,6 +55,30 @@ class CognitoStack(core.Stack):
                     domain_name=cognito_domain, certificate=cert
                 ),
             )
+
+        # Set callback URLs for the client (added after the damain)
+        callback_urls = ["http://localhost:5000/postlogin"]
+        if cfg.AWS_API_SUBDOMAIN:
+            callback_urls.append(
+                f"https://{cfg.AWS_API_SUBDOMAIN}.{cfg.AWS_DOMAIN_NAME}/postlogin"
+            )
+
+            # TODO if the API gateway is deployed without a domain, need to use
+            # the value here (likely with SSM)
+
+        # Add a client and generate client ID and secret
+        self.client = self.user_pool.add_client(
+            f"{construct_id}-client",
+            generate_secret=True,
+            user_pool_client_name=f"{cfg.NAMESPACE}-{cfg.ENV}",
+            auth_flows=cognito.AuthFlow(user_password=True, user_srp=True),
+            o_auth=cognito.OAuthSettings(
+                flows=cognito.OAuthFlows(authorization_code_grant=True),
+                scopes=[cognito.OAuthScope.OPENID],
+                callback_urls=callback_urls,
+            ),
+        )
+        self.export_client_secret_to_ssm(construct_id)
 
         # Use systems manager parameter store to export the variables needed
         # for import in the lambda environment
@@ -122,7 +137,6 @@ class CognitoStack(core.Stack):
             "UserPoolClient.ClientSecret"
         )
 
-        # TODO secure string?
         ssm.StringParameter(
             self,
             f"{construct_id}-ssm-client-secret",
