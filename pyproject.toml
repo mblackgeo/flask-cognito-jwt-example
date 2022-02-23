@@ -17,6 +17,7 @@ python-dotenv = "^0.19.2"
 bjoern = "^3.2.1"
 PyJWT = "^2.3.0"
 cryptography = "^36.0.1"
+Flask-Cors = "^3.0.10"
 
 [tool.poetry.dev-dependencies]
 black = "^22.1.0"
