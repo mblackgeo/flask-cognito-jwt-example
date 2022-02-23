@@ -5,6 +5,7 @@ from pydantic import BaseSettings, Field
 
 
 class CDKConfig(BaseSettings):
+    NAMESPACE: str = Field(default="webapp")
     ENV: str = Field(default="prod")
     AWS_REGION: str = Field(default="eu-west-1")
     AWS_ACCOUNT: str = Field(...)
