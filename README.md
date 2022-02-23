@@ -26,7 +26,7 @@ AWS_COGNITO_USER_POOL_CLIENT_ID=
 AWS_COGNITO_USER_POOL_CLIENT_SECRET=
 ```
 
-The application can be run locally through docker (`make docker-build && make docker-run`) or installed to a virtualenv using poetry and the `run.debug.py` (for debugging) or the `run.bjoern.py` for the production WSGI server (see Development below for more details). The app should be launched at [http://localhost:5000](http://localhost:5000) and a login link should redirect you to the hosted Cognito UI to sign up / sign in. Once logged in, a cookie will be set to save the JWT and you will be redirected to the [private page](http://localhost:5000/private). You may also view details of the JWT at the [`/token`](http://localhost:5000/token) endpoint.
+The application can be run locally through docker (`make docker-build && make docker-run`) or installed to a virtualenv using poetry and the `src/webapp/run.debug.py` (for debugging) or the `src/webapp/run.bjoern.py` for the production WSGI server (see Development below for more details). The app should be launched at [http://localhost:5000](http://localhost:5000) and a login link should redirect you to the hosted Cognito UI to sign up / sign in. Once logged in, a cookie will be set to save the JWT and you will be redirected to the [private page](http://localhost:5000/private). You may also view details of the JWT at the [`/token`](http://localhost:5000/token) endpoint.
 
 ## Development
 

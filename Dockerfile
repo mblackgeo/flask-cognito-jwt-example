@@ -24,4 +24,4 @@ WORKDIR /src
 RUN pip install .
 
 ENTRYPOINT ["/usr/bin/dumb-init", "--"]
-CMD ["python3", "run.bjoern.py"]
+CMD ["python3", "src/webapp/run.bjoern.py"]
