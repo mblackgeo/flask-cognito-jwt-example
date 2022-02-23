@@ -59,4 +59,4 @@ exclude = '''
 profile = "black"
 multi_line_output = 3
 line_length = 88
-known_first_party = ["webapp"]
+known_first_party = ["webapp", "stacks"]
