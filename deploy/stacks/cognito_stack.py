@@ -55,6 +55,7 @@ class CognitoStack(core.Stack):
                 hosted_zone=zone,
                 region="us-east-1",  # required for Cognito to be in us-east-1
                 domain_name=cognito_domain,
+                cleanup_route53_records=True,
             )
 
             self.user_pool.add_domain(
