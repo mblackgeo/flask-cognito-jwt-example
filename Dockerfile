@@ -16,7 +16,7 @@ RUN pip install "poetry==$POETRY_VERSION"
 WORKDIR /src
 
 COPY pyproject.toml poetry.lock /src/
-RUN poetry export --dev --without-hashes --no-interaction --no-ansi -f requirements.txt -o requirements.txt
+RUN poetry export --without-hashes --no-interaction --no-ansi -f requirements.txt -o requirements.txt
 RUN pip install --force-reinstall -r requirements.txt
 
 COPY . /src
