@@ -45,6 +45,12 @@ The Makefile includes helpful commands setting a development environment, get st
 * [pre-commit](https://pre-commit.com/) is used to run these checks locally before files are pushed to git
 * The [Github Actions pipeline](.github/workflows/pipeline.yml) also runs these checks and tests
 
+## Deployment
+
+* Build package with Zappa suitable for deployment to AWS Lambda
+* Use CDK to create the required resources (Cognito, Lambda, API Gateway)
+
+TODO - more detail
 
 ## TODO
 
