@@ -1,4 +1,4 @@
-from aws_cdk import Stack
+import aws_cdk as core
 from aws_cdk import aws_apigateway as apigw
 from aws_cdk import aws_certificatemanager as acm
 from aws_cdk import aws_lambda as _lambda
@@ -6,20 +6,20 @@ from aws_cdk import aws_route53 as route53
 from aws_cdk import aws_route53_targets as targets
 from constructs import Construct
 
-from .config import Conf
+from stacks.config import cfg
 
 
-class LambdaApiStack(Stack):
+class LambdaApiStack(core.Stack):
     def __init__(self, scope: Construct, construct_id: str, **kwargs) -> None:
         super().__init__(scope, construct_id, **kwargs)
 
         # Stage configuration
-        opts = apigw.StageOptions(stage_name=Conf.ENV)
+        opts = apigw.StageOptions(stage_name=cfg.ENV)
 
         # Optional Route 53 setup domain and certifcates
-        if Conf.AWS_DOMAIN_NAME:
-            root_domain = Conf.AWS_DOMAIN_NAME
-            api_domain = f"{Conf.AWS_API_SUBDOMAIN}.{root_domain}"
+        if cfg.AWS_DOMAIN_NAME:
+            root_domain = cfg.AWS_DOMAIN_NAME
+            api_domain = f"{cfg.AWS_API_SUBDOMAIN}.{root_domain}"
 
             # Get the HostedZone of the root domain
             zone = route53.HostedZone.from_lookup(
@@ -43,17 +43,18 @@ class LambdaApiStack(Stack):
         # This picks up on Dockerfile in the parent folder
         fn = _lambda.DockerImageFunction(
             self,
-            f"{construct_id}-restful-api-function",
+            f"{construct_id}-lambda-handler",
             code=_lambda.DockerImageCode.from_image_asset(
                 directory="..", file="Dockerfile.aws"
             ),
+            timeout=core.Duration.seconds(15),
             environment={
                 "FLASK_APP": "webapp",
-                "FLASK_ENV": opts.stage_name,
+                "FLASK_ENV": cfg.ENV,
                 "FLASK_JWT_SECRET_KEY": "",
                 "FLASK_SITE_URL": "",
-                "AWS_REGION": Conf.AWS_REGION,
-                "AWS_DEFAULT_REGION": Conf.AWS_REGION,
+                "AWS_REGION": cfg.AWS_REGION,
+                "AWS_DEFAULT_REGION": cfg.AWS_REGION,
                 "AWS_COGNITO_DOMAIN": "",
                 "AWS_COGNITO_USER_POOL_ID": "",
                 "AWS_COGNITO_USER_POOL_CLIENT_ID": "",

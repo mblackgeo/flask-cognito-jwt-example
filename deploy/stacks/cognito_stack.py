@@ -1,8 +1,9 @@
 from aws_cdk import Stack
 from aws_cdk import aws_cognito as cognito
+from aws_cdk import aws_ssm as ssm
 from constructs import Construct
 
-from .config import Conf
+from stacks.config import cfg
 
 
 class CognitoStack(Stack):
@@ -26,15 +27,23 @@ class CognitoStack(Stack):
             ),
         )
 
+        # TODO add a client
+
         # Add a custom domain for the hosted UI
-        if Conf.AWS_COGNITO_SUBDOMAIN:
+        if cfg.AWS_COGNITO_SUBDOMAIN:
             self.user_pool.add_domain(
                 f"{construct_id}-user-pool-domain",
                 cognito_domain=cognito.CognitoDomainOptions(
-                    domain_prefix=Conf.AWS_COGNITO_SUBDOMAIN
+                    domain_prefix=cfg.AWS_COGNITO_SUBDOMAIN
                 ),
             )
 
         # Use systems manager parameter store to export the variables needed
         # for import in the lambda environment
-        # TODO
+        ssm.StringParameter(
+            self,
+            f"{construct_id}-ssm-cognito-user-pool-id",
+            parameter_name="webapp/cognito-user-pool-id",
+            string_value=self.user_pool.user_pool_id,
+            description="Cognito user pool ID",
+        )
