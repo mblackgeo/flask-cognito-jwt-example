@@ -1,13 +1,13 @@
-from flask import Flask
 from flask_cors import CORS
+from flask_lambda import FlaskLambda
 
 __version__ = "0.1.0"
 __all__ = ["__version__", "create_app"]
 
 
-def create_app() -> Flask:
+def create_app() -> FlaskLambda:
     """Construct the core application."""
-    app = Flask(__name__)
+    app = FlaskLambda(__name__)
     CORS(app)
     app.config.from_object("webapp.config.Config")
 

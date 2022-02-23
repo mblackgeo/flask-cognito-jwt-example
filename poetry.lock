@@ -300,6 +300,17 @@ Werkzeug = ">=0.14"
 asymmetric_crypto = ["cryptography (>=35.0.0)"]
 
 [[package]]
+name = "flask-lambda"
+version = "0.0.4"
+description = "Python module to make Flask compatible with AWS Lambda for creating RESTful applications"
+category = "main"
+optional = false
+python-versions = "*"
+
+[package.dependencies]
+Flask = ">=0.10"
+
+[[package]]
 name = "identify"
 version = "2.4.10"
 description = "File identification library for Python"
@@ -817,7 +828,7 @@ python-versions = "!=3.0.*,!=3.1.*,!=3.2.*,!=3.3.*,!=3.4.*,>=2.7"
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.8"
-content-hash = "d8b49f37b29c891a306b6a736d4c35a95d5a105b5267dd37d59c14496e18437e"
+content-hash = "a46ab40247efdbee4ee05526b67910bede4746c190f47719d5c438cfc50aaeec"
 
 [metadata.files]
 astroid = [
@@ -1040,6 +1051,10 @@ flask-cors = [
 flask-jwt-extended = [
     {file = "Flask-JWT-Extended-4.3.1.tar.gz", hash = "sha256:ad6977b07c54e51c13b5981afc246868b9901a46715d9b9827898bfd916aae88"},
     {file = "Flask_JWT_Extended-4.3.1-py2.py3-none-any.whl", hash = "sha256:c82c9e505bc96f4a5186de31c05262dbcde6fa10581e9aa46df8f99ca04be2c3"},
+]
+flask-lambda = [
+    {file = "flask-lambda-0.0.4.tar.gz", hash = "sha256:489fa54dc97b7fb7ddeaacd137544ad32c1a3399a5870046b31bef2e909d9fea"},
+    {file = "flask_lambda-0.0.4-py2.py3-none-any.whl", hash = "sha256:b2859140b936ac7380d29901d338adf0e5ce19a504aa12659e54f58c94774fc1"},
 ]
 identify = [
     {file = "identify-2.4.10-py2.py3-none-any.whl", hash = "sha256:7d10baf6ba6f1912a0a49f4c1c2c49fa1718765c3a37d72d13b07779567c5b85"},
