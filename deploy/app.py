@@ -8,8 +8,8 @@ from stacks.config import cfg
 app = cdk.App()
 cdk_environment = cdk.Environment(region=cfg.AWS_REGION, account=cfg.AWS_ACCOUNT)
 
-cognito = CognitoStack(app, "cognito")
-# lambda_api = LambdaApiStack(app, "lambda-api")
+cognito = CognitoStack(app, "cognito", env=cdk_environment)
+# lambda_api = LambdaApiStack(app, "lambda-api", env=cdk_environment))
 # lambda_api.add_dependency(cognito)
 
 app.synth()
