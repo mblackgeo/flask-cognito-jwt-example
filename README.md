@@ -47,7 +47,7 @@ The Makefile includes helpful commands setting a development environment, get st
 
 ## Deployment
 
-* Build package with Zappa suitable for deployment to AWS Lambda
+* CDK version 2.13.0
 * Use CDK to create the required resources (Cognito, Lambda, API Gateway)
 
 TODO - more detail
