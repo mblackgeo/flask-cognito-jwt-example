@@ -30,8 +30,11 @@ class Config:
     # JWT
     FLASK_JWT_SECRET_KEY = environ.get("FLASK_JWT_SECRET_KEY", urandom(32))
     JWT_ALGORITHM = "RS256"
-    # JWT_TOKEN_LOCATION = ["cookies"]
-    # JWT_COOKIE_SECURE = FLASK_ENV == "prod"  # True in prod
+
+    # CSRF protection
+    JWT_TOKEN_LOCATION = ["cookies"]
+    JWT_COOKIE_CSRF_PROTECT = False  # TODO
+    JWT_COOKIE_SECURE = True
 
     # Static Assets
     STATIC_FOLDER = "static"
