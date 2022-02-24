@@ -23,7 +23,7 @@ python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*"
 name = "attrs"
 version = "21.4.0"
 description = "Classes Without Boilerplate"
-category = "dev"
+category = "main"
 optional = false
 python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*, !=3.4.*"
 
@@ -37,11 +37,40 @@ tests_no_zope = ["coverage[toml] (>=5.0.2)", "hypothesis", "pympler", "pytest (>
 name = "aws-cdk-lib"
 version = "2.13.0"
 description = "Version 2 of the AWS Cloud Development Kit library"
-category = "dev"
+category = "main"
 optional = false
 python-versions = ">=3.6"
 
 [package.dependencies]
+constructs = ">=10.0.0,<11.0.0"
+jsii = ">=1.54.0,<2.0.0"
+publication = ">=0.0.3"
+
+[[package]]
+name = "aws-cdk.aws-apigatewayv2-alpha"
+version = "2.13.0a0"
+description = "The CDK Construct Library for AWS::APIGatewayv2"
+category = "main"
+optional = false
+python-versions = ">=3.6"
+
+[package.dependencies]
+aws-cdk-lib = ">=2.13.0,<3.0.0"
+constructs = ">=10.0.0,<11.0.0"
+jsii = ">=1.54.0,<2.0.0"
+publication = ">=0.0.3"
+
+[[package]]
+name = "aws-cdk.aws-apigatewayv2-integrations-alpha"
+version = "2.13.0a0"
+description = "Integrations for AWS APIGateway V2"
+category = "main"
+optional = false
+python-versions = ">=3.6"
+
+[package.dependencies]
+aws-cdk-lib = ">=2.13.0,<3.0.0"
+"aws-cdk.aws-apigatewayv2-alpha" = "2.13.0.a0"
 constructs = ">=10.0.0,<11.0.0"
 jsii = ">=1.54.0,<2.0.0"
 publication = ">=0.0.3"
@@ -80,7 +109,7 @@ uvloop = ["uvloop (>=0.15.2)"]
 name = "cattrs"
 version = "1.10.0"
 description = "Composable complex class support for attrs and dataclasses."
-category = "dev"
+category = "main"
 optional = false
 python-versions = ">=3.7,<4.0"
 
@@ -148,7 +177,7 @@ python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*, !=3.4.*"
 name = "constructs"
 version = "10.0.70"
 description = "A programming model for software-defined state"
-category = "dev"
+category = "main"
 optional = false
 python-versions = ">=3.6"
 
@@ -377,7 +406,7 @@ i18n = ["Babel (>=2.7)"]
 name = "jsii"
 version = "1.54.0"
 description = "Python client for jsii runtime"
-category = "dev"
+category = "main"
 optional = false
 python-versions = "~=3.6"
 
@@ -507,7 +536,7 @@ virtualenv = ">=20.0.8"
 name = "publication"
 version = "0.0.3"
 description = "Publication helps you maintain public-api-friendly modules by preventing unintentional access to private implementation details via introspection."
-category = "dev"
+category = "main"
 optional = false
 python-versions = "*"
 
@@ -662,7 +691,7 @@ dev = ["pre-commit", "tox", "pytest-asyncio"]
 name = "python-dateutil"
 version = "2.8.2"
 description = "Extensions to the standard Python datetime module"
-category = "dev"
+category = "main"
 optional = false
 python-versions = "!=3.0.*,!=3.1.*,!=3.2.*,>=2.7"
 
@@ -771,7 +800,7 @@ python-versions = ">=3.6"
 name = "typing-extensions"
 version = "4.1.1"
 description = "Backported and Experimental Type Hints for Python 3.6+"
-category = "dev"
+category = "main"
 optional = false
 python-versions = ">=3.6"
 
@@ -828,7 +857,7 @@ python-versions = "!=3.0.*,!=3.1.*,!=3.2.*,!=3.3.*,!=3.4.*,>=2.7"
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.8"
-content-hash = "a46ab40247efdbee4ee05526b67910bede4746c190f47719d5c438cfc50aaeec"
+content-hash = "5916eb8a9e40dada847029abdee94fd1c4d3fa0be35a0a70eb3aa466c32814f9"
 
 [metadata.files]
 astroid = [
@@ -846,6 +875,14 @@ attrs = [
 aws-cdk-lib = [
     {file = "aws-cdk-lib-2.13.0.tar.gz", hash = "sha256:02b35a07f57a21530c1b96009195db0521577f4ca16dd0c3affd6af490bde61a"},
     {file = "aws_cdk_lib-2.13.0-py3-none-any.whl", hash = "sha256:eec0d5c12cc3c82b99817d66a3ac2383b97b4501aa930e840bea78918b282984"},
+]
+"aws-cdk.aws-apigatewayv2-alpha" = [
+    {file = "aws-cdk.aws-apigatewayv2-alpha-2.13.0a0.tar.gz", hash = "sha256:f24a8dac1d07ffa3f768d6221a7722c8c57bad8b832db03a322f3af1baf7257b"},
+    {file = "aws_cdk.aws_apigatewayv2_alpha-2.13.0a0-py3-none-any.whl", hash = "sha256:5d12aab24f042feb63f61c1f5f17ef5038b63f9ae1018728095a580fb70d3db3"},
+]
+"aws-cdk.aws-apigatewayv2-integrations-alpha" = [
+    {file = "aws-cdk.aws-apigatewayv2-integrations-alpha-2.13.0a0.tar.gz", hash = "sha256:2eff457a409bccaabeb4dc127bf6a69481c03f37aae03b2a8cee9c1d6dd3e3c2"},
+    {file = "aws_cdk.aws_apigatewayv2_integrations_alpha-2.13.0a0-py3-none-any.whl", hash = "sha256:efd88c4a0ec37dd9da6325bb3d31b643599a1b9133611c230e50f64aa2d09900"},
 ]
 bjoern = [
     {file = "bjoern-3.2.1.tar.gz", hash = "sha256:19df818e059cc7ff87ca35b82586989e449a7ec4628866afb40b23be5a9b0c8b"},
