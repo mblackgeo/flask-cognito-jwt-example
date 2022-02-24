@@ -49,16 +49,24 @@ class CognitoStack(core.Stack):
                 cleanup_route53_records=True,
             )
 
-            self.user_pool.add_domain(
+            domain = self.user_pool.add_domain(
                 f"{construct_id}-domain",
                 custom_domain=cognito.CustomDomainOptions(
                     domain_name=cognito_domain, certificate=cert
                 ),
             )
+        else:
+            # Create domain prefix so there is a hosted UI
+            domain = self.user_pool.add_domain(
+                f"{construct_id}-prefix-domain",
+                cognito_domain=cognito.CognitoDomainOptions(
+                    domain_prefix=f"{cfg.NAMESPACE}-auth"
+                ),
+            )
 
         # Set callback URLs for the client (added after the damain)
         callback_urls = ["http://localhost:5000/postlogin"]
-        if cfg.AWS_API_SUBDOMAIN:
+        if cfg.AWS_API_SUBDOMAIN and cfg.AWS_DOMAIN_NAME:
             callback_urls.append(
                 f"https://{cfg.AWS_API_SUBDOMAIN}.{cfg.AWS_DOMAIN_NAME}/postlogin"
             )
@@ -94,7 +102,7 @@ class CognitoStack(core.Stack):
             self,
             f"{construct_id}-ssm-user-pool-url",
             parameter_name=f"/{cfg.NAMESPACE}/cognito-user-pool-url",
-            string_value=self.user_pool.user_pool_provider_url,
+            string_value=domain.base_url(),
             description="Cognito user pool URL",
         )
 
