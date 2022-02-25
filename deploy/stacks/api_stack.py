@@ -79,11 +79,11 @@ class ApiStack(core.Stack):
             self,
             f"{construct_id}-lambda-handler",
             code=_lambda.DockerImageCode.from_image_asset(
-                directory="..", file="Dockerfile"
+                directory="..", file="Dockerfile.aws"
             ),
             timeout=core.Duration.seconds(15),
             environment=environment,
-            memory_size=1024,
+            memory_size=512,
         )
 
         # Create the API with optional domain
