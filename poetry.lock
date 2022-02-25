@@ -23,7 +23,7 @@ python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*"
 name = "attrs"
 version = "21.4.0"
 description = "Classes Without Boilerplate"
-category = "main"
+category = "dev"
 optional = false
 python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*, !=3.4.*"
 
@@ -37,7 +37,7 @@ tests_no_zope = ["coverage[toml] (>=5.0.2)", "hypothesis", "pympler", "pytest (>
 name = "aws-cdk-lib"
 version = "2.13.0"
 description = "Version 2 of the AWS Cloud Development Kit library"
-category = "main"
+category = "dev"
 optional = false
 python-versions = ">=3.6"
 
@@ -50,7 +50,7 @@ publication = ">=0.0.3"
 name = "aws-cdk.aws-apigatewayv2-alpha"
 version = "2.13.0a0"
 description = "The CDK Construct Library for AWS::APIGatewayv2"
-category = "main"
+category = "dev"
 optional = false
 python-versions = ">=3.6"
 
@@ -64,7 +64,7 @@ publication = ">=0.0.3"
 name = "aws-cdk.aws-apigatewayv2-integrations-alpha"
 version = "2.13.0a0"
 description = "Integrations for AWS APIGateway V2"
-category = "main"
+category = "dev"
 optional = false
 python-versions = ">=3.6"
 
@@ -109,7 +109,7 @@ uvloop = ["uvloop (>=0.15.2)"]
 name = "cattrs"
 version = "1.10.0"
 description = "Composable complex class support for attrs and dataclasses."
-category = "main"
+category = "dev"
 optional = false
 python-versions = ">=3.7,<4.0"
 
@@ -177,7 +177,7 @@ python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*, !=3.4.*"
 name = "constructs"
 version = "10.0.70"
 description = "A programming model for software-defined state"
-category = "main"
+category = "dev"
 optional = false
 python-versions = ">=3.6"
 
@@ -406,7 +406,7 @@ i18n = ["Babel (>=2.7)"]
 name = "jsii"
 version = "1.54.0"
 description = "Python client for jsii runtime"
-category = "main"
+category = "dev"
 optional = false
 python-versions = "~=3.6"
 
@@ -536,7 +536,7 @@ virtualenv = ">=20.0.8"
 name = "publication"
 version = "0.0.3"
 description = "Publication helps you maintain public-api-friendly modules by preventing unintentional access to private implementation details via introspection."
-category = "main"
+category = "dev"
 optional = false
 python-versions = "*"
 
@@ -691,7 +691,7 @@ dev = ["pre-commit", "tox", "pytest-asyncio"]
 name = "python-dateutil"
 version = "2.8.2"
 description = "Extensions to the standard Python datetime module"
-category = "main"
+category = "dev"
 optional = false
 python-versions = "!=3.0.*,!=3.1.*,!=3.2.*,>=2.7"
 
@@ -800,7 +800,7 @@ python-versions = ">=3.6"
 name = "typing-extensions"
 version = "4.1.1"
 description = "Backported and Experimental Type Hints for Python 3.6+"
-category = "main"
+category = "dev"
 optional = false
 python-versions = ">=3.6"
 
@@ -857,7 +857,7 @@ python-versions = "!=3.0.*,!=3.1.*,!=3.2.*,!=3.3.*,!=3.4.*,>=2.7"
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.8"
-content-hash = "5916eb8a9e40dada847029abdee94fd1c4d3fa0be35a0a70eb3aa466c32814f9"
+content-hash = "947289886f38dde3c791ab8b1c43c34dc5e1165aff7a8f9e0463ab44a7dcf3be"
 
 [metadata.files]
 astroid = [

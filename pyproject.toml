@@ -19,10 +19,10 @@ PyJWT = "^2.3.0"
 cryptography = "^36.0.1"
 Flask-Cors = "^3.0.10"
 flask-lambda = "^0.0.4"
-"aws-cdk.aws-apigatewayv2-alpha" = "^2.13.0-alpha.0"
-"aws-cdk.aws-apigatewayv2-integrations-alpha" = "^2.13.0-alpha.0"
 
 [tool.poetry.dev-dependencies]
+"aws-cdk.aws-apigatewayv2-alpha" = "^2.13.0-alpha.0"
+"aws-cdk.aws-apigatewayv2-integrations-alpha" = "^2.13.0-alpha.0"
 black = "^22.1.0"
 pytest = "^7.0.1"
 flake8 = "^4.0.1"
