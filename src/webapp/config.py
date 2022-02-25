@@ -33,7 +33,7 @@ class Config:
 
     # CSRF protection
     JWT_TOKEN_LOCATION = ["cookies"]
-    JWT_COOKIE_CSRF_PROTECT = False  # TODO
+    JWT_COOKIE_CSRF_PROTECT = False  # TODO is this required?
     JWT_COOKIE_SECURE = True
 
     # Static Assets

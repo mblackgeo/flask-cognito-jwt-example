@@ -11,7 +11,6 @@ from flask import (
 )
 from flask_awscognito import AWSCognitoAuthentication
 from flask_jwt_extended import (
-    JWTManager,
     get_jwt,
     jwt_required,
     set_access_cookies,
@@ -35,7 +34,6 @@ except InvalidKeyError:
         ("Could verify Cognito public keys. " "Secure routes may not be accessible")
     )
 
-jwt = JWTManager(current_app)
 bp = Blueprint("auth_bp", __name__)
 
 
