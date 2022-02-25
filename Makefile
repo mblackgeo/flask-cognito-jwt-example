@@ -26,3 +26,12 @@ docker-build:  ## Build the containerised webapp
 docker-run:  ## Run the containerised application locally
 	echo "Running at : http://localhost:5000/"
 	docker run -ti --net=host --env-file ./.env "webapp:latest"
+
+lambda-build:  ## Build the containerised application for AWS Lambda
+	docker build -f Dockerfile.aws -t "webapp-lambda:latest" .
+
+lambda-local:  ## Run the the containerised application for AWS Lambda locally
+	docker run -ti -p 9000:8080 --env-file ./.env "webapp-lambda:latest" .
+
+test-lambda:
+	poetry run tests/test-lambda-local
