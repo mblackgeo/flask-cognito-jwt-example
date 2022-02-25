@@ -1,4 +1,3 @@
-import serverless_wsgi
 from flask import Flask
 from flask_cors import CORS
 
@@ -23,9 +22,3 @@ def create_app() -> Flask:
         app.register_blueprint(private_routes.bp)
 
         return app
-
-
-def handler(event, context):
-    """Handler for AWS Lambda"""
-    app = create_app()
-    return serverless_wsgi.handle_request(app.wsgi_app, event, context)
