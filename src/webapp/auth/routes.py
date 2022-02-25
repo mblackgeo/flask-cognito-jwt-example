@@ -1,3 +1,5 @@
+import logging
+
 from flask import (
     Blueprint,
     current_app,
@@ -16,16 +18,23 @@ from flask_jwt_extended import (
     unset_jwt_cookies,
 )
 from jwt.algorithms import RSAAlgorithm
+from jwt.exceptions import InvalidKeyError
 
 from .utils import get_cognito_public_keys
 
 aws_auth = AWSCognitoAuthentication(current_app)
-current_app.config["JWT_PUBLIC_KEY"] = RSAAlgorithm.from_jwk(
-    get_cognito_public_keys(
-        region=current_app.config["AWS_REGION"],
-        pool_id=current_app.config["AWS_COGNITO_USER_POOL_ID"],
+try:
+    current_app.config["JWT_PUBLIC_KEY"] = RSAAlgorithm.from_jwk(
+        get_cognito_public_keys(
+            region=current_app.config["AWS_REGION"],
+            pool_id=current_app.config["AWS_COGNITO_USER_POOL_ID"],
+        )
     )
-)
+except InvalidKeyError:
+    logging.warning(
+        ("Could verify Cognito public keys. " "Secure routes may not be accessible")
+    )
+
 jwt = JWTManager(current_app)
 bp = Blueprint("auth_bp", __name__)
 
