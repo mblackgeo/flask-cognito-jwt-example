@@ -12,5 +12,5 @@ def get_cognito_public_keys(region: str, pool_id: str) -> str:
         resp = requests.get(url)
         return json.dumps(json.loads(resp.text)["keys"][1])
 
-    except (KeyError, LocationParseError):
+    except (KeyError, LocationParseError, requests.exceptions.ConnectionError):
         logging.warning("Could not load public keys from Cognito User Pool")
