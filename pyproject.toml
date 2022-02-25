@@ -18,7 +18,7 @@ bjoern = "^3.2.1"
 PyJWT = "^2.3.0"
 cryptography = "^36.0.1"
 Flask-Cors = "^3.0.10"
-flask-lambda = "^0.0.4"
+serverless-wsgi = "^3.0.0"
 
 [tool.poetry.dev-dependencies]
 "aws-cdk.aws-apigatewayv2-alpha" = "^2.13.0-alpha.0"
