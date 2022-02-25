@@ -79,7 +79,7 @@ class ApiStack(core.Stack):
             self,
             f"{construct_id}-lambda-handler",
             code=_lambda.DockerImageCode.from_image_asset(
-                directory="..", file="Dockerfile.aws"
+                directory="..", file="Dockerfile"
             ),
             timeout=core.Duration.seconds(15),
             environment=environment,
@@ -110,6 +110,14 @@ class ApiStack(core.Stack):
         )
 
         fn.add_environment(key="FLASK_SITE_URL", value=http_api.url)
+
+        ssm.StringParameter(
+            self,
+            f"{construct_id}-ssm-http-url",
+            parameter_name=f"/{cfg.NAMESPACE}/apigw-url",
+            string_value=http_api.url,
+            description="API Gateway URL",
+        )
 
     def from_ssm(self, key: str) -> str:
         return ssm.StringParameter.value_for_string_parameter(self, key)
