@@ -1,7 +1,5 @@
 FROM public.ecr.aws/lambda/python:3.8
 
-RUN yum install -y gcc libev-devel
-
 RUN pip install "poetry==1.1.12"
 COPY pyproject.toml poetry.lock ${LAMBDA_TASK_ROOT}/
 RUN poetry export --without-hashes --no-interaction --no-ansi -f requirements.txt -o ${LAMBDA_TASK_ROOT}/requirements.txt
