@@ -16,7 +16,7 @@ class ApiStack(cdk.Stack):
         super().__init__(scope, construct_id, **kwargs)
 
         # Optional Route 53 setup domain and certifcates
-        domain_name = None
+        default_domain_mapping = None
         if cfg.AWS_DOMAIN_NAME and cfg.AWS_API_SUBDOMAIN:
             root_domain = cfg.AWS_DOMAIN_NAME
             api_domain = f"{cfg.AWS_API_SUBDOMAIN}.{root_domain}"
@@ -56,9 +56,6 @@ class ApiStack(cdk.Stack):
                 ),
             )
 
-        # Create the API with optional domain
-        default_domain_mapping = None
-        if domain_name:
             default_domain_mapping = apigw.DomainMappingOptions(domain_name=domain_name)
 
         # Register and build an Lambda docker image
