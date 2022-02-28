@@ -54,13 +54,13 @@ class CognitoClientStack(cdk.Stack):
     def export_client_secret_to_ssm(self, construct_id: str):
         # The generated client secret is not outputted by CloudFormation
         # Here we make a custom resource that will perform an SDK call to get
-        # generated client secret and store it in SSM. See:
+        # the generated client secret and store it in SSM. See:
         # https://github.com/aws/aws-cdk/issues/7225#issuecomment-610299259
         describe_client = cr.AwsCustomResource(
             self,
             f"{construct_id}-describe-pool-agent",
             resource_type="Custom::DescribeCognitoUserPoolClient",
-            on_create=cr.AwsSdkCall(
+            on_update=cr.AwsSdkCall(
                 region=cfg.AWS_REGION,
                 service="CognitoIdentityServiceProvider",
                 action="describeUserPoolClient",

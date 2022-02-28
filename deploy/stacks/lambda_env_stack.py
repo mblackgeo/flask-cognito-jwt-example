@@ -40,7 +40,7 @@ class LambdaEnvStack(cdk.Stack):
             self,
             f"{construct_id}-custom-resource-update-env",
             resource_type="Custom::DescribeCognitoUserPoolClient",
-            on_create=cr.AwsSdkCall(
+            on_update=cr.AwsSdkCall(
                 region=cfg.AWS_REGION,
                 service="Lambda",
                 action="updateFunctionConfiguration",
