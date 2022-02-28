@@ -15,8 +15,12 @@ class ApiStack(cdk.Stack):
     def __init__(self, scope: Construct, construct_id: str, **kwargs) -> None:
         super().__init__(scope, construct_id, **kwargs)
 
-        # Optional Route 53 setup domain and certifcates
+        # If no custom domain, leave default mapping blank and ensure that the
+        # execute API remains enabled
         default_domain_mapping = None
+        disable_execute_api_endpoint = False
+
+        # Optional Route 53 setup domain and certificates
         if cfg.AWS_DOMAIN_NAME and cfg.AWS_API_SUBDOMAIN:
             root_domain = cfg.AWS_DOMAIN_NAME
             api_domain = f"{cfg.AWS_API_SUBDOMAIN}.{root_domain}"
@@ -56,7 +60,10 @@ class ApiStack(cdk.Stack):
                 ),
             )
 
+            # Set the domain mapping to the custom URL and ensure the default
+            # execute api endpoint is disabled
             default_domain_mapping = apigw.DomainMappingOptions(domain_name=domain_name)
+            disable_execute_api_endpoint = True
 
         # Register and build an Lambda docker image
         # This picks up on Dockerfile in the parent folder
@@ -75,6 +82,7 @@ class ApiStack(cdk.Stack):
             scope=self,
             id=f"{construct_id}-endpoint",
             default_domain_mapping=default_domain_mapping,
+            disable_execute_api_endpoint=disable_execute_api_endpoint,
             default_integration=apigw_integrations.HttpLambdaIntegration(
                 id=f"{construct_id}-lambda-default-integration", handler=fn
             ),
