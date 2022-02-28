@@ -67,7 +67,7 @@ class ApiStack(cdk.Stack):
                 directory="..", file="Dockerfile"
             ),
             timeout=cdk.Duration.seconds(15),
-            memory_size=512,  # TODO check memory usage, reduce if needed
+            memory_size=128,
         )
 
         # Add proxy integration for all routes
