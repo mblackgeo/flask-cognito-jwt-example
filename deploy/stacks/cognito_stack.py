@@ -59,7 +59,7 @@ class CognitoStack(cdk.Stack):
             domain = self.user_pool.add_domain(
                 f"{construct_id}-prefix-domain",
                 cognito_domain=cognito.CognitoDomainOptions(
-                    domain_prefix=f"{cfg.NAMESPACE}-auth"
+                    domain_prefix=f"{cfg.NAMESPACE}"
                 ),
             )
 
