@@ -61,12 +61,6 @@ class ApiStack(cdk.Stack):
         if domain_name:
             default_domain_mapping = apigw.DomainMappingOptions(domain_name=domain_name)
 
-        self.http_api = apigw.HttpApi(
-            scope=self,
-            id=f"{construct_id}-endpoint",
-            default_domain_mapping=default_domain_mapping,
-        )
-
         # Register and build an Lambda docker image
         # This picks up on Dockerfile in the parent folder
         fn = _lambda.DockerImageFunction(
@@ -80,6 +74,15 @@ class ApiStack(cdk.Stack):
         )
 
         # Add proxy integration for all routes
+        self.http_api = apigw.HttpApi(
+            scope=self,
+            id=f"{construct_id}-endpoint",
+            default_domain_mapping=default_domain_mapping,
+            default_integration=apigw_integrations.HttpLambdaIntegration(
+                id=f"{construct_id}-lambda-default-integration", handler=fn
+            ),
+        )
+
         self.http_api.add_routes(
             path="/",
             methods=[apigw.HttpMethod.ANY],
