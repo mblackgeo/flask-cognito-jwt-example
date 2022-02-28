@@ -67,25 +67,6 @@ class ApiStack(cdk.Stack):
             default_domain_mapping=default_domain_mapping,
         )
 
-        ssm.StringParameter(
-            self,
-            f"{construct_id}-ssm-http-url",
-            parameter_name=f"/{cfg.NAMESPACE}/apigw-url",
-            string_value=self.http_api.url,
-            description="API Gateway URL",
-        )
-
-        environment = {
-            "FLASK_APP": cfg.NAMESPACE,
-            "FLASK_ENV": cfg.ENV,
-            "FLASK_SITE_URL": self.http_api.url,
-            # Additional env vars are populated later to avoid circular dependencies
-            # "AWS_COGNITO_DOMAIN"
-            # "AWS_COGNITO_USER_POOL_ID"
-            # "AWS_COGNITO_USER_POOL_CLIENT_ID"
-            # "AWS_COGNITO_USER_POOL_CLIENT_SECRET"
-        }
-
         # Register and build an Lambda docker image
         # This picks up on Dockerfile in the parent folder
         fn = _lambda.DockerImageFunction(
@@ -95,17 +76,18 @@ class ApiStack(cdk.Stack):
                 directory="..", file="Dockerfile"
             ),
             timeout=cdk.Duration.seconds(15),
-            environment=environment,
             memory_size=512,  # TODO check memory usage, reduce if needed
             function_name=cdk.PhysicalName.GENERATE_IF_NEEDED,
-        )
-
-        ssm.StringParameter(
-            self,
-            f"{construct_id}-ssm-lambda-arn",
-            parameter_name=f"/{cfg.NAMESPACE}/lambda-arn",
-            string_value=fn.function_arn,
-            description="Lambda function ARN",
+            environment={
+                "FLASK_APP": cfg.NAMESPACE,
+                "FLASK_ENV": cfg.ENV,
+                "FLASK_SITE_URL": self.http_api.url,
+                # Additional env vars are populated later to avoid circular dependencies
+                # "AWS_COGNITO_DOMAIN"
+                # "AWS_COGNITO_USER_POOL_ID"
+                # "AWS_COGNITO_USER_POOL_CLIENT_ID"
+                # "AWS_COGNITO_USER_POOL_CLIENT_SECRET"
+            },
         )
 
         # Add proxy integration for all routes
@@ -115,4 +97,21 @@ class ApiStack(cdk.Stack):
             integration=apigw_integrations.HttpLambdaIntegration(
                 id=f"{construct_id}-lambda-any-integration", handler=fn
             ),
+        )
+
+        # Export the URL and Lambda ARN to SSM for other stacks to import
+        ssm.StringParameter(
+            self,
+            f"{construct_id}-ssm-lambda-arn",
+            parameter_name=f"/{cfg.NAMESPACE}/lambda-arn",
+            string_value=fn.function_arn,
+            description="Lambda function ARN",
+        )
+
+        ssm.StringParameter(
+            self,
+            f"{construct_id}-ssm-http-url",
+            parameter_name=f"/{cfg.NAMESPACE}/apigw-url",
+            string_value=self.http_api.url,
+            description="API Gateway URL",
         )
