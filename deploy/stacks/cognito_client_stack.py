@@ -1,5 +1,3 @@
-from os.path import join
-
 import aws_cdk as cdk
 from aws_cdk import aws_cognito as cognito
 from aws_cdk import aws_ssm as ssm
@@ -21,13 +19,11 @@ class CognitoClientStack(cdk.Stack):
         )
 
         # Set callback URLs for the client
-        apigw_url = join(
-            ssm.StringParameter.value_for_string_parameter(
-                self, f"/{cfg.NAMESPACE}/apigw-url"
-            ),
-            "postlogin",
+        # API Gateway URL already has a trailing slash appended
+        apigw_url = ssm.StringParameter.value_for_string_parameter(
+            self, f"/{cfg.NAMESPACE}/apigw-url"
         )
-        callback_urls = ["http://localhost:5000/postlogin", apigw_url]
+        callback_urls = ["http://localhost:5000/postlogin", f"{apigw_url}postlogin"]
 
         # Add a client and generate client ID and secret
         self.client = self.user_pool.add_client(
