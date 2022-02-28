@@ -10,28 +10,28 @@ from stacks.config import cfg
 class LambdaEnvStack(cdk.Stack):
     def __init__(self, scope: Construct, construct_id: str, **kwargs) -> None:
         super().__init__(scope, construct_id, **kwargs)
+        self.namespace = cfg.NAMESPACE
 
-        # Grab the function ARN
+        # Grab the Lambda function
         fn = _lambda.Function.from_function_arn(
             scope=self,
             id=f"{construct_id}-lambda-fn",
-            function_arn=self.from_ssm(f"/{cfg.NAMESPACE}/lambda-arn"),
+            function_arn=self.from_ssm("lambda-arn"),
         )
 
         # Get the environment variables from SSM
         # Only possible *after* both API gateway and Cognito have been deployed
+        # Other option would be to have the container resolve these values at
+        # runtime using the AWS SDK (boto3)
         environment = {
-            "AWS_COGNITO_DOMAIN": self.from_ssm(
-                f"/{cfg.NAMESPACE}/cognito-user-pool-url"
-            ),
-            "AWS_COGNITO_USER_POOL_ID": self.from_ssm(
-                f"/{cfg.NAMESPACE}/cognito-user-pool-id"
-            ),
-            "AWS_COGNITO_USER_POOL_CLIENT_ID": self.from_ssm(
-                f"/{cfg.NAMESPACE}/cognito-client-id"
-            ),
+            "FLASK_APP": cfg.NAMESPACE,
+            "FLASK_ENV": cfg.ENV,
+            "FLASK_SITE_URL": self.from_ssm("apigw-url"),
+            "AWS_COGNITO_DOMAIN": self.from_ssm("cognito-user-pool-url"),
+            "AWS_COGNITO_USER_POOL_ID": self.from_ssm("cognito-user-pool-id"),
+            "AWS_COGNITO_USER_POOL_CLIENT_ID": self.from_ssm("cognito-client-id"),
             "AWS_COGNITO_USER_POOL_CLIENT_SECRET": self.from_ssm(
-                f"/{cfg.NAMESPACE}/cognito-client-secret"
+                "cognito-client-secret"
             ),
         }
 
@@ -58,4 +58,6 @@ class LambdaEnvStack(cdk.Stack):
         )
 
     def from_ssm(self, key: str) -> str:
-        return ssm.StringParameter.value_for_string_parameter(self, key)
+        return ssm.StringParameter.value_for_string_parameter(
+            scope=self, parameter_name=f"/{self.namespace}/{key}"
+        )

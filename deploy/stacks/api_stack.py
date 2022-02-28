@@ -77,17 +77,6 @@ class ApiStack(cdk.Stack):
             ),
             timeout=cdk.Duration.seconds(15),
             memory_size=512,  # TODO check memory usage, reduce if needed
-            function_name=cdk.PhysicalName.GENERATE_IF_NEEDED,
-            environment={
-                "FLASK_APP": cfg.NAMESPACE,
-                "FLASK_ENV": cfg.ENV,
-                "FLASK_SITE_URL": self.http_api.url,
-                # Additional env vars are populated later to avoid circular dependencies
-                # "AWS_COGNITO_DOMAIN"
-                # "AWS_COGNITO_USER_POOL_ID"
-                # "AWS_COGNITO_USER_POOL_CLIENT_ID"
-                # "AWS_COGNITO_USER_POOL_CLIENT_SECRET"
-            },
         )
 
         # Add proxy integration for all routes
