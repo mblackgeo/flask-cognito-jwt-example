@@ -1,4 +1,4 @@
-import aws_cdk as core
+import aws_cdk as cdk
 from aws_cdk import aws_certificatemanager as acm
 from aws_cdk import aws_cognito as cognito
 from aws_cdk import aws_route53 as route53
@@ -8,7 +8,7 @@ from constructs import Construct
 from stacks.config import cfg
 
 
-class CognitoStack(core.Stack):
+class CognitoStack(cdk.Stack):
     def __init__(self, scope: Construct, construct_id: str, **kwargs) -> None:
         super().__init__(scope, construct_id, **kwargs)
 
@@ -27,7 +27,7 @@ class CognitoStack(core.Stack):
                 email_subject="Verify your account",
                 email_style=cognito.VerificationEmailStyle.LINK,
             ),
-            removal_policy=core.RemovalPolicy.DESTROY,  # TODO change for prod
+            removal_policy=cdk.RemovalPolicy.DESTROY,  # TODO change for prod
         )
 
         # Add a custom domain for the hosted UI

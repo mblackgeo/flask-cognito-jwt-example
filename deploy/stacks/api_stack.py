@@ -1,4 +1,4 @@
-import aws_cdk as core
+import aws_cdk as cdk
 from aws_cdk import aws_apigatewayv2_alpha as apigw
 from aws_cdk import aws_certificatemanager as acm
 from aws_cdk import aws_route53 as route53
@@ -9,7 +9,7 @@ from constructs import Construct
 from stacks.config import cfg
 
 
-class ApiStack(core.Stack):
+class ApiStack(cdk.Stack):
     def __init__(self, scope: Construct, construct_id: str, **kwargs) -> None:
         super().__init__(scope, construct_id, **kwargs)
 

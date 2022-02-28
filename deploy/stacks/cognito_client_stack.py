@@ -1,4 +1,4 @@
-import aws_cdk as core
+import aws_cdk as cdk
 from aws_cdk import aws_cognito as cognito
 from aws_cdk import aws_ssm as ssm
 from aws_cdk import custom_resources as cr
@@ -7,7 +7,7 @@ from constructs import Construct
 from stacks.config import cfg
 
 
-class CognitoClientStack(core.Stack):
+class CognitoClientStack(cdk.Stack):
     def __init__(
         self, scope: Construct, construct_id: str, user_pool: cognito.UserPool, **kwargs
     ) -> None:

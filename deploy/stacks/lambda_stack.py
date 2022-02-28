@@ -1,4 +1,4 @@
-import aws_cdk as core
+import aws_cdk as cdk
 from aws_cdk import aws_apigatewayv2_alpha as apigw
 from aws_cdk import aws_apigatewayv2_integrations_alpha as apigw_integrations
 from aws_cdk import aws_lambda as _lambda
@@ -8,7 +8,7 @@ from constructs import Construct
 from stacks.config import cfg
 
 
-class LambdaStack(core.Stack):
+class LambdaStack(cdk.Stack):
     def __init__(
         self, scope: Construct, construct_id: str, http_api: apigw.HttpApi, **kwargs
     ) -> None:
@@ -29,6 +29,7 @@ class LambdaStack(core.Stack):
             "AWS_COGNITO_USER_POOL_CLIENT_SECRET": self.from_ssm(
                 f"/{cfg.NAMESPACE}/cognito-client-secret"
             ),
+            "FLASK_SITE_URL": http_api.url,
         }
 
         # Register and build an Lambda docker image
@@ -39,9 +40,10 @@ class LambdaStack(core.Stack):
             code=_lambda.DockerImageCode.from_image_asset(
                 directory="..", file="Dockerfile"
             ),
-            timeout=core.Duration.seconds(15),
+            timeout=cdk.Duration.seconds(15),
             environment=environment,
             memory_size=512,
+            function_name=cdk.PhysicalName.GENERATE_IF_NEEDED,
         )
 
         # Add proxy integration for all routes
@@ -52,8 +54,6 @@ class LambdaStack(core.Stack):
                 id=f"{construct_id}-lambda-any-integration", handler=fn
             ),
         )
-
-        fn.add_environment(key="FLASK_SITE_URL", value=http_api.url)
 
     def from_ssm(self, key: str) -> str:
         return ssm.StringParameter.value_for_string_parameter(self, key)
