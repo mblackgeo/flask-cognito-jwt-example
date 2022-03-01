@@ -43,7 +43,7 @@ make local  # or go to the AWS API Gateway URL
 make help
 ```
 
-The Makefile includes helpful commands for setting up a development environment, get started by installing the package into a new virtual environment and setting up pre-commit with `make install`. Run `make help` to see additional available commands (e.g. linting, testing, docker, and so on).
+The [Makefile](Makefile) includes helpful commands for setting up a development environment, get started by installing the package into a new virtual environment and setting up pre-commit with `make install`. Run `make help` to see additional available commands (e.g. linting, testing, docker, and so on).
 
 The application can be run locally through docker (`make docker-build && make docker-run`) or from the installed virtualenv with `make local`. The app should launched at [http://localhost:5000](http://localhost:5000) and a login link should redirect you to the Cognito hosted UI to sign up / sign in. Once logged in, a cookie will save the JWT and you will be redirected to the [private page](http://localhost:5000/private). You may also view details of the JWT at the [`/token`](http://localhost:5000/token) endpoint.
 
