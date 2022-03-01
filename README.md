@@ -8,7 +8,7 @@ Prequisites:
 
 * [poetry](https://python-poetry.org/)
 * [pre-commit](https://pre-commit.com/)
-* [AWS CDK](https://aws.amazon.com/cdk/) version 2.13.0
+* [AWS CDK](https://aws.amazon.com/cdk/) (v2.15.0)
 
 Setup as follows:
 
