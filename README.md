@@ -4,7 +4,7 @@ An example serverless web application using [Flask](https://flask.palletsproject
 
 ![Architecture](architecture.png)
 
-A high level overview of how the application works is as follows. The Flask application includes a number of routes:
+A high level overview of how the application works is as follows. The Flask application includes a number of blueprints:
 
 * [`home`](src/webapp/home/routes.py): a simple homepage that includes a login link.
 * [`auth`](src/webapp/auth/routes.py): login, post-login, and logout routes.
