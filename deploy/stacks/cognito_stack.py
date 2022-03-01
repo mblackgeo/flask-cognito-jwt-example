@@ -2,6 +2,7 @@ import aws_cdk as cdk
 from aws_cdk import aws_certificatemanager as acm
 from aws_cdk import aws_cognito as cognito
 from aws_cdk import aws_route53 as route53
+from aws_cdk import aws_route53_targets as targets
 from aws_cdk import aws_ssm as ssm
 from constructs import Construct
 
@@ -54,6 +55,19 @@ class CognitoStack(cdk.Stack):
                     domain_name=cognito_domain, certificate=cert
                 ),
             )
+
+            # Add an A record for the cloudfront distribution that is created
+            # when using a custom domain
+            route53.ARecord(
+                self,
+                f"{construct_id}-user-pool-a-record",
+                zone=zone,
+                record_name=cognito_domain,
+                target=route53.RecordTarget.from_alias(
+                    targets.UserPoolDomainTarget(domain)
+                ),
+            )
+
         else:
             # Create domain prefix so there is a hosted UI
             domain = self.user_pool.add_domain(
