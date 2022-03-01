@@ -51,5 +51,5 @@ The application can be run locally through docker (`make docker-build && make do
 ## TODO
 
 - [x] CORS
-- [ ] Serverless deployment with [AWS CDK](https://aws.amazon.com/cdk/) [in progress]
+- [X] Serverless deployment with [AWS CDK](https://aws.amazon.com/cdk/)
 - [ ] Is [CSRF protection](https://flask-jwt-extended.readthedocs.io/en/stable/options/#cross-site-request-forgery-options) required?
