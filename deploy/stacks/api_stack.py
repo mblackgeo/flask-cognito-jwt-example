@@ -105,10 +105,17 @@ class ApiStack(cdk.Stack):
             description="Lambda function ARN",
         )
 
+        # store the appropriate URL in SSM for the API (i.e. custom domain or execute
+        # API generated domain)
+        if default_domain_mapping is None:
+            api_url = self.http_api.url
+        else:
+            api_url = f"https://{cfg.AWS_API_SUBDOMAIN}.{root_domain}/"
+
         ssm.StringParameter(
             self,
             f"{construct_id}-ssm-http-url",
             parameter_name=f"/{cfg.NAMESPACE}/apigw-url",
-            string_value=self.http_api.url,
+            string_value=api_url,
             description="API Gateway URL",
         )
