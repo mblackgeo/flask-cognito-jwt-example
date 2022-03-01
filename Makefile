@@ -18,7 +18,7 @@ format:  ## Run black and isort to format the code
 	poetry run isort .
 
 local:  ## Run the webapp locally for debugging using Werkzeug
-	poetry run python src/webapp/lambda.py
+	poetry run python src/webapp/app.py
 
 docker-build:  ## Build the containerised webapp
 	docker build -f Dockerfile -t "webapp:latest" .

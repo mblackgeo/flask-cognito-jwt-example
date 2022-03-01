@@ -8,4 +8,4 @@ RUN pip install --force-reinstall -r ${LAMBDA_TASK_ROOT}/requirements.txt
 COPY . ${LAMBDA_TASK_ROOT}
 RUN pip install .
 
-ENTRYPOINT ["python3", "src/webapp/lambda.py"]
+ENTRYPOINT ["python3", "src/webapp/app.py"]
