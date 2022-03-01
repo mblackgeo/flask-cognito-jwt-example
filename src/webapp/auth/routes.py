@@ -61,6 +61,6 @@ def token():
 
 @bp.route("/logout", methods=["GET", "POST"])
 def logout():
-    response = jsonify({"msg": "logout successful"})
-    unset_jwt_cookies(response)
-    return response
+    resp = make_response(redirect(url_for("home_bp.home")))
+    unset_jwt_cookies(resp)
+    return resp
