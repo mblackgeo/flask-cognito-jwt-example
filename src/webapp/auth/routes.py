@@ -23,13 +23,6 @@ def postlogin():
     return resp
 
 
-@bp.route("/token")
-@jwt_required()
-def token():
-    """Show the JSON web token for the current authenticated user"""
-    return jsonify(get_jwt())
-
-
 @bp.route("/logout", methods=["GET", "POST"])
 def logout():
     resp = make_response(redirect(url_for("home_bp.home")))
