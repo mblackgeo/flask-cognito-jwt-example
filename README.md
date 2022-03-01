@@ -28,12 +28,16 @@ Setup as follows:
 # setup the python environment with poetry
 make install
 
+# Populate the .env file the required parameters
+cp .env.example .env
+vi .env
+
 # deploy the infra (Cognito, API Gateway, Lambda)
 cd deploy
 cdk deploy --all
 
-# Populate the .env file with CDK outputs
-cp .env.example .env
+# Populate AWS_COGNITO user pool parameters after deploying
+# Obtain these values from the Systems Manager Parameter Store
 vi .env
 
 # run locally using Workzeug
