@@ -16,7 +16,7 @@ def login():
 
 @bp.route("/postlogin", methods=["GET"])
 def postlogin():
-    """After a successful loging store the access token as a cookie and redirect"""
+    """After a successful login store the access token as a cookie and redirect"""
     access_token = aws_auth.get_access_token(request.args)
     resp = make_response(redirect(url_for("private_bp.private")))
     set_access_cookies(resp, access_token, max_age=30 * 60)  # 30 mins
@@ -25,6 +25,7 @@ def postlogin():
 
 @bp.route("/logout", methods=["GET", "POST"])
 def logout():
+    """Logout the user and delete their JWT cookie"""
     resp = make_response(redirect(url_for("home_bp.home")))
     unset_jwt_cookies(resp)
     return resp
