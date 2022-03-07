@@ -67,6 +67,7 @@ The application can be run locally through docker (`make docker-build && make do
 - [X] Serverless deployment with [AWS CDK](https://aws.amazon.com/cdk/)
 - [ ] Is [CSRF protection](https://flask-jwt-extended.readthedocs.io/en/stable/options/#cross-site-request-forgery-options) required?
 - [ ] Handle JWT authenticated routes in local development (i.e. no Cognito)
+- [ ] Populate parameters from SSM at runtime rather than deploy time
 
 
 ## Credits
