@@ -11,14 +11,13 @@ def test_home(client):
     assert "<title>Welcome!</title>" in str(response.data)
 
 
-def test_private_logged_out(client):
-    response = client.get("/private")
+def test_auth_login(client):
+    # redirects to Cognito
+    response = client.get("/login")
     assert response.status_code == 302
 
 
-def test_private_logged_in():
-    pass
-    # TODO
-    # mocker.patch("flask_jwt_extended.view_decorators.verify_jwt_in_request")
-    # assert "<title>This is a protected page!</title>" in str(response.data)
-    # assert "Well done, you have authenticated successfully" in str(response.data)
+def test_private_logged_out(client):
+    # 403 unauthorized
+    response = client.get("/private")
+    assert response.status_code == 403

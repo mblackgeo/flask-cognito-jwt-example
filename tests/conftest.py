@@ -8,7 +8,7 @@ from webapp import create_app
 
 
 @pytest.fixture
-def app(mocker):
+def app():
     """Create application for the tests."""
     # setup testing config
     os.environ["FLASK_APP"] = "webapp"
@@ -30,11 +30,6 @@ def app(mocker):
         "alg": "RS256",
         "kid": "2011-04-29",
     }
-
-    mocker.patch(
-        "webapp.auth.utils.get_cognito_public_keys",
-        return_value=json.dumps(mock_public_key),
-    )
 
     _app = create_app()
     _app.logger.setLevel(logging.CRITICAL)
