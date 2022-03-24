@@ -19,7 +19,7 @@ def login():
 @cognito_login_callback
 def postlogin():
     """After a successful login store the access token as a cookie and redirect"""
-    return
+    return redirect(url_for("private_bp.private"))
 
 
 @bp.route("/logout", methods=["GET", "POST"])
