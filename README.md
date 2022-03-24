@@ -10,7 +10,7 @@ A high level overview of how the application works is as follows. The Flask appl
 * [`auth`](src/webapp/auth/routes.py): login, post-login, and logout routes.
 * [`private`](src/webapp/private/routes.py): routes that are only accessible after a user has logged in. If a user is not logged in these routes automatically redirect to the Cognito hosted UI.
 
-When accessing the `/login` route, a user is redirected to the Cognito hosted UI. After successful authentication with the user pool, a JWT is returned to the app through the `/postlogin` endpoint which is stored in a httponly cookie; this cookie is valid for 30 mins and used to authorise access to any routes that are protected with the [`@login_required`](/src/webapp/auth/utils.py) decorator. The app itself uses [Flask-JWT-Extended](https://flask-jwt-extended.readthedocs.io/en/stable/) and [Flask-AWSCognito](https://flask-awscognito.readthedocs.io/en/latest/index.html) to assist with the handling of JWTs to protect specific routes.
+When accessing the `/login` route, a user is redirected to the Cognito hosted UI. After successful authentication with the user pool, a JWT is returned to the app through the `/postlogin` endpoint which is stored in a httponly cookie; this cookie is valid for 30 mins and used to authorise access to any routes that are protected with the [`@login_required`](/src/webapp/auth/utils.py) decorator. The app itself uses [`flask-cognito-lib`](https://mblackgeo.github.io/flask-cognito-lib) afor the heaving lifting of validating JWTs and protecting specific routes.
 
 For the deployment side, [CDK](https://aws.amazon.com/cdk/) python code is provided in [`/deploy`](/deploy/app.py). The CDK stacks will deploy the Flask application as a [docker container](Dockerfile) to Lambda, with API Gateway in front. A Cognito User Pool is created along with a User Pool Client for the Flask application.
 
@@ -65,7 +65,7 @@ The application can be run locally through docker (`make docker-build && make do
 
 - [x] CORS
 - [X] Serverless deployment with [AWS CDK](https://aws.amazon.com/cdk/)
-- [ ] Logout route should also hit the revoke Cognito endpoint
+- [x] Logout route should also hit the revoke Cognito endpoint
 - [ ] Handle JWT authenticated routes in local development (i.e. no Cognito)
 - [ ] Populate parameters from SSM at runtime rather than deploy time
 
