@@ -1,14 +1,12 @@
 """Route declaration."""
-from flask import Blueprint, jsonify, render_template
-from flask_jwt_extended import get_jwt
-
-from webapp.auth.utils import login_required
+from flask import Blueprint, jsonify, render_template, session
+from flask_cognito_lib.decorators import auth_required
 
 bp = Blueprint("private_bp", __name__, template_folder="templates")
 
 
 @bp.route("/private")
-@login_required()
+@auth_required()
 def private() -> str:
     """Render the a private page of the website
 
@@ -21,7 +19,7 @@ def private() -> str:
 
 
 @bp.route("/token")
-@login_required()
+@auth_required()
 def token():
     """Show the JSON web token for the current authenticated user"""
-    return jsonify(get_jwt())
+    return jsonify(session)
