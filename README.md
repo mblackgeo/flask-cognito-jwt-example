@@ -66,7 +66,7 @@ The application can be run locally through docker (`make docker-build && make do
 - [x] CORS
 - [X] Serverless deployment with [AWS CDK](https://aws.amazon.com/cdk/)
 - [x] Logout route should also hit the revoke Cognito endpoint
-- [ ] Handle JWT authenticated routes in local development (i.e. no Cognito)
+- [x] Handle JWT authenticated routes in local development (i.e. no Cognito) -> Set `AWS_COGNITO_DISABLED` to `True`
 - [ ] Populate parameters from SSM at runtime rather than deploy time
 
 
