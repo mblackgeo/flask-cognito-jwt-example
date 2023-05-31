@@ -15,6 +15,7 @@ python-dotenv = "^0.19.2"
 Flask-Cors = "^3.0.10"
 lambdarado = "^2.3.0"
 flask-cognito-lib = "^1.0.1"
+urllib3 = "<=2.0"
 
 [tool.poetry.dev-dependencies]
 "aws-cdk.aws-apigatewayv2-alpha" = "^2.13.0-alpha.0"
